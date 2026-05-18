@@ -39,8 +39,8 @@ export interface BeeProfile {
   name: string,
   age: number,
   role: string,
-  specialization : string,
-  healthScore: number
+  specialization? : string,
+  healthScore?: number
 }
 
 
@@ -60,7 +60,7 @@ export function registerBee(profile: BeeProfile): string {
 // - Implement 'calculateAverageWeight'. It should accept an array of numbers ('weights') and return a number.
 //   It should compute and return the average of the weights. If the array is empty, return 0.
 export function calculateAverageWeight(weights: number[]): number {
-  if (weights.length = 0){
+  if (weights.length === 0){
     return 0
   } 
   let sum : number = weights.reduce((acc , current)=>acc = acc + current)
