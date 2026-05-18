@@ -1,0 +1,33 @@
+{
+  "name": "rbktn-tu-c1-26-typescript-sprint",
+  "version": "1.0.0",
+  "description": "A step-by-step TypeScript practice sprint project with automated tests",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "mocha -r ts-node/register \"test/**/*.test.ts\"",
+    "test:1": "mocha -r ts-node/register test/01-basics.test.ts",
+    "test:2": "mocha -r ts-node/register test/02-bees.test.ts",
+    "test:3": "mocha -r ts-node/register test/03-generics.test.ts",
+    "test:4": "mocha -r ts-node/register test/04-advanced.test.ts",
+    "test:5": "mocha -r ts-node/register test/05-async.test.ts",
+    "test:6": "mocha -r ts-node/register test/06-analytics.test.ts"
+  },
+  "keywords": [
+    "typescript",
+    "sprint",
+    "practice",
+    "exercises",
+    "mocha"
+  ],
+  "author": "Antigravity",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/chai": "^4.3.5",
+    "@types/mocha": "^10.0.1",
+    "@types/node": "^20.3.1",
+    "chai": "^4.3.7",
+    "mocha": "^10.2.0",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.1.3"
+  }
+}
