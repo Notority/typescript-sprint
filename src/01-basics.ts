@@ -9,20 +9,20 @@
 // - Annotate 'hiveName' as a string (initialized to "Sovereign Swarm")
 // - Annotate 'population' as a number (initialized to 45000)
 // - Annotate 'isQueenPresent' as a boolean (initialized to true)
-export let hiveName: any = "Sovereign Swarm";
-export let population: any = 45000;
-export let isQueenPresent: any = true;
+export let hiveName: string = "Sovereign Swarm";
+export let population: number = 45000;
+export let isQueenPresent: boolean = true;
 
 // 2. Arrays & Tuples
 // - Annotate 'larvaeWeights' as an array of numbers.
-export let larvaeWeights: any = [4.2, 5.8, 10.5, 3.1, 12.0];
+export let larvaeWeights: number[] = [4.2, 5.8, 10.5, 3.1, 12.0];
 
 // - Define a Type Alias 'Position3D' representing a tuple [number, number, number]
 //   which stands for [latitude, longitude, altitude].
-export type Position3D = any;
+export type Position3D = [number , number , number];
 
 // - Annotate 'hiveLocation' as a 'Position3D' tuple (initialized to [36.8065, 10.1815, 250])
-export let hiveLocation: any = [36.8065, 10.1815, 250];
+export let hiveLocation: Position3D = [36.8065, 10.1815, 250];
 
 
 // 3. Interfaces
@@ -35,25 +35,37 @@ export let hiveLocation: any = [36.8065, 10.1815, 250];
 //   - specialization: string (optional property)
 //   - healthScore: number (optional property)
 export interface BeeProfile {
-  // TODO: Implement the interface properties here
+  id: number,
+  name: string,
+  age: number,
+  role: string,
+  specialization : string,
+  healthScore: number
 }
 
 
 // 4. Typed Functions
 // - Implement 'isLarvaReadyForCocoon'. It should accept 'weight' as a number, and return a boolean.
 //   A larva is ready if its weight is 10.5 milligrams or greater.
-export function isLarvaReadyForCocoon(weight: any): any {
-  // TODO: Add type annotations and implementation
+export function isLarvaReadyForCocoon(weight: number): boolean {
+  return weight >= 10.5 ?  true :  false
 }
 
 // - Implement 'registerBee'. It should accept a 'profile' of type 'BeeProfile' and return a string.
 //   It should return: "Registered bee: <name> as <role>" (e.g. "Registered bee: Buzz as Forager")
-export function registerBee(profile: any): any {
-  // TODO: Add type annotations and implementation
+export function registerBee(profile: BeeProfile): string {
+  return `Registered bee: ${profile.name} as ${profile.role}`
 }
 
 // - Implement 'calculateAverageWeight'. It should accept an array of numbers ('weights') and return a number.
 //   It should compute and return the average of the weights. If the array is empty, return 0.
-export function calculateAverageWeight(weights: any): any {
-  // TODO: Add type annotations and implementation
+export function calculateAverageWeight(weights: number[]): number {
+  if (weights.length = 0){
+    return 0
+  } 
+  let sum : number = weights.reduce((acc , current)=>acc = acc + current)
+
+  let avg : number = sum/weights.length
+
+  return avg
 }
