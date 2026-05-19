@@ -12,21 +12,23 @@ import { AdultBee } from './02-bees';
 //   - specializationCode: string
 //   - performAnalysis(): string
 export interface Specialist {
-  // TODO: Implement properties
+     specializationCode: string,
+     performAnalysis(): string
 }
 
 // - Define an interface 'Guard' with:
 //   - defendStation: string
 //   - alertSignal(): string
 export interface Guard {
-  // TODO: Implement properties
+     defendStation: string,
+     alertSignal(): string
 }
 
 // - Define a type alias 'DefenseLead' that is an INTERSECTION of:
 //   - AdultBee
 //   - Specialist
 //   - Guard
-export type DefenseLead = any; // TODO: Implement intersection
+export type DefenseLead = AdultBee & Specialist & Guard
 
 
 // 2. Discriminated Unions for Hive Events
@@ -35,7 +37,9 @@ export type DefenseLead = any; // TODO: Implement intersection
 //   - producerId: number
 //   - potsAmount: number
 export interface HoneyHarvestEvent {
-  // TODO: Implement fields
+  type: 'harvest',
+  producerId: number,
+  potsAmount: number
 }
 
 // - Define 'IntruderAlertEvent' with:
@@ -43,7 +47,9 @@ export interface HoneyHarvestEvent {
 //   - sector: string
 //   - dangerLevel: 'LOW' | 'MEDIUM' | 'HIGH'
 export interface IntruderAlertEvent {
-  // TODO: Implement fields
+  type: 'alert',
+  sector: string,
+  dangerLevel: 'LOW' | 'MEDIUM' | 'HIGH'
 }
 
 // - Define 'SwarmRequestEvent' with:
@@ -51,24 +57,26 @@ export interface IntruderAlertEvent {
 //   - scoutId: number
 //   - destination: string
 export interface SwarmRequestEvent {
-  // TODO: Implement fields
+  type: 'swarm',
+  scoutId : number,
+  destination : string
 }
 
 // - Define a Discriminated Union type 'HiveEvent' which is the union of the above three events.
-export type HiveEvent = any; // TODO: Replace with the union
+export type HiveEvent = HoneyHarvestEvent | IntruderAlertEvent | SwarmRequestEvent
 
 
 // 3. Custom Type Guards
 // - Implement a custom Type Guard 'isAlertEvent' to check if a 'HiveEvent' is an 'IntruderAlertEvent'.
 //   The return type annotation must use the 'is' keyword (e.g. 'event is IntruderAlertEvent').
-export function isAlertEvent(event: HiveEvent): any {
-  // TODO: Add type annotations and implementation
+export function isAlertEvent(event: HiveEvent): event is IntruderAlertEvent {
+  return event.type === 'alert'
 }
 
 // - Implement a custom Type Guard 'isHarvestEvent' to check if a 'HiveEvent' is a 'HoneyHarvestEvent'.
 //   The return type annotation must use the 'is' keyword.
-export function isHarvestEvent(event: HiveEvent): any {
-  // TODO: Add type annotations and implementation
+export function isHarvestEvent(event: HiveEvent): event is HoneyHarvestEvent {
+  return event.type === 'harvest'
 }
 
 
@@ -79,6 +87,16 @@ export function isHarvestEvent(event: HiveEvent): any {
 //   - 'IntruderAlertEvent': Return "ALARM! Sector <sector> under <dangerLevel> threat!"
 //   - 'SwarmRequestEvent': Return "Swarm sequence requested by scout <scoutId> to <destination>"
 export function processHiveEvent(event: HiveEvent): string {
-  // TODO: Implement narrowing and return appropriate messages
-  return "";
+  if (event.type === 'harvest'){
+    return `Harvested ${event.potsAmount} pots of honey from producer ${event.producerId}`
+  }
+  if(event.type === 'alert'){
+    return `ALARM! Sector ${event.sector} under ${event.dangerLevel} threat!`
+  }
+  if (event.type === 'swarm'){
+    return `Swarm sequence requested by scout ${event.scoutId} to ${event.destination}`
+  }
+
+  return ""
+  
 }
