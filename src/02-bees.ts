@@ -21,7 +21,25 @@ import { BeeProfile, Position3D } from './01-basics';
 //   - getHealth(): number
 //     - Returns healthScore.
 export class BaseLarva {
-  // TODO: Implement fields, constructor and methods
+ age : number
+ protected healthScore : number
+ private foodSource : string
+
+ constructor(age: number, healthScore: number, foodSource: string){
+  this.age = age
+  this.healthScore = healthScore
+  this.foodSource = foodSource
+ }
+
+ eat(amount : number) : void{
+ let  amnt : number = amount * 2
+ this.healthScore + amnt > 100 ? this.healthScore = 100 : this.healthScore+=amnt
+ }
+
+ getHealth() : number {
+  return this.healthScore
+ }
+
 }
 
 
@@ -37,7 +55,20 @@ export class BaseLarva {
 //   - getProfile(): BeeProfile
 //     - Returns registryProfile.
 export class AdultBee extends BaseLarva {
-  // TODO: Implement AdultBee
+  protected registryProfile: BeeProfile
+  constructor(age : number , healthScore : number , foodSource : string , registryProfile : BeeProfile){
+    super(age , healthScore , foodSource)
+
+    this.registryProfile = registryProfile
+ }
+
+ performRole() : string {
+  return `Bee ${this.registryProfile.name} is executing role: ${this.registryProfile.role}`
+ }
+
+ getProfile() : BeeProfile {
+  return this.registryProfile
+ }
 }
 
 
@@ -54,7 +85,25 @@ export class AdultBee extends BaseLarva {
 //   - unloadHoney(): number
 //     - Returns the current count of honeyPotsCollected, and RESETS honeyPotsCollected to 0.
 export class HoneyProducerBee extends AdultBee {
-  // TODO: Implement HoneyProducerBee
+  private honeyPotsCollected : number 
+  constructor(age : number , healthScore : number , foodSource : string , registryProfile : BeeProfile){
+    super(age , healthScore , foodSource , registryProfile)
+
+    this.honeyPotsCollected = 0
+
+  }
+
+  produceHoney() : void {
+    this.healthScore + 2 > 100? (this.healthScore = 100 , this.honeyPotsCollected =+ 1) : (this.healthScore += 2 , this.honeyPotsCollected += 1)
+  }
+
+  unloadHoney() : number{
+    const collected = this.honeyPotsCollected
+    this.honeyPotsCollected = 0
+    return collected
+    
+    
+  }
 }
 
 
@@ -72,7 +121,21 @@ export class HoneyProducerBee extends AdultBee {
 //   - getTreasure(): string[]
 //     - Returns treasureChest.
 export class PollenForager extends AdultBee {
-  // TODO: Implement PollenForager
+  private canFly : boolean
+  private treasureChest : string[]
+  constructor(age : number , healthScore : number , foodSource : string , registryProfile : BeeProfile  , canFly : boolean){
+    super(age , healthScore , foodSource , registryProfile)
+
+    this.canFly = canFly
+    this.treasureChest = []
+  }
+  forage(location : Position3D) : void{
+    this.canFly ? this.treasureChest.push(`pollen-${location[0]}-${location[1]}-${location[2]}`) : 0
+  }
+
+  getTreasure(): string[]{
+    return this.treasureChest
+  }
 }
 
 
@@ -90,5 +153,21 @@ export class PollenForager extends AdultBee {
 //   - getWorkers(): AdultBee[]
 //     - Returns workerRegistry.
 export class RoyalQueenBee extends AdultBee {
-  // TODO: Implement RoyalQueenBee
+  private workerRegistry : AdultBee[]
+  constructor(age : number , healthScore : number , foodSource : string , registryProfile : BeeProfile){
+    super(age , healthScore,foodSource, registryProfile)
+   this.workerRegistry = []
+  }
+  layEggs(count : number) : string{
+    return `Queen ${this.registryProfile.name} laid ${count} larvae`
+  }
+
+  registerWorker(worker: AdultBee): void{
+    this.workerRegistry.push(worker)
+  }
+
+  getWorkers(): AdultBee[]{
+    return this.workerRegistry
+  }
+
 }
