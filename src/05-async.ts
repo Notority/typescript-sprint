@@ -53,5 +53,25 @@ export interface WeatherService {
 //          - If 'WARNING': Return "Warning: Deployed <foragerNames.length> foragers with safety gear"
 //          - If 'SAFE': Return "Success: Deployed <foragerNames.length> foragers"
 export class HiveDispatcher {
-  // TODO: Implement HiveDispatcher
+ constructor(private weatherService : WeatherService){
+
+ }
+  async dispatchSquad(locationName : string , foragerNames : string[]): Promise<string> {
+    
+    const result = await this.weatherService.getWeather(locationName)
+    if (result.status === 'DANGEROUS'){
+     throw new WeatherError("Dangerous weather: dispatch aborted")
+    }
+    if (result.status === 'WARNING'){
+      return `Warning: Deployed ${foragerNames.length} foragers with safety gear`
+    }
+    if (result.status === "SAFE"){
+     return `Success: Deployed ${foragerNames.length} foragers` 
+    }
+    
+
+
+    return ""
+  }
+ 
 }
