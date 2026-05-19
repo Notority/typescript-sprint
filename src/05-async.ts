@@ -33,7 +33,7 @@ export class WeatherError extends Error {
 // - It should have a method:
 //   - getWeather(locationName: string): Promise<WeatherReport>
 export interface WeatherService {
-  // TODO: Implement getWeather signature
+  getWeather(locationName: string): Promise<WeatherReport>
 }
 
 
