@@ -29,7 +29,7 @@ export interface LaborBeeType {
 // - Implement a Conditional Type 'FilterLaborBees<T>' that takes a union of types 'T'.
 // - If 'T' extends an object containing '{ canPerformLabor: true }', resolve to 'T'.
 // - Otherwise, resolve to 'never'.
-export type FilterLaborBees<T> = any; // TODO: Implement Conditional Type
+export type FilterLaborBees<T> = T extends { canPerformLabor: true } ? T : never
 
 
 // 3. Utility Types: Dashboard Operations
@@ -44,6 +44,6 @@ export interface RawAnalyticsData {
 //   - 'RequiredRegistrySummary': Use the 'Required' utility type to make all fields of 'BeeProfile' mandatory.
 //   - 'PublicAnalyticsReport': Use the 'Omit' utility type to extract all fields from 'RawAnalyticsData' EXCEPT 'confidentialSystemLog'.
 //   - 'ForagingMetricsRecord': Use the 'Record' utility type to map string location names (keys) to number yields (values).
-export type RequiredRegistrySummary = any; // TODO: Replace 'any'
-export type PublicAnalyticsReport = any;   // TODO: Replace 'any'
-export type ForagingMetricsRecord = any;   // TODO: Replace 'any'
+export type RequiredRegistrySummary = Required<BeeProfile>
+export type PublicAnalyticsReport = Omit <RawAnalyticsData , "confidentialSystemLog">
+export type ForagingMetricsRecord = Record<string,number>
