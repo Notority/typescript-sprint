@@ -87,6 +87,16 @@ export function isHarvestEvent(event: HiveEvent): event is HoneyHarvestEvent {
 //   - 'IntruderAlertEvent': Return "ALARM! Sector <sector> under <dangerLevel> threat!"
 //   - 'SwarmRequestEvent': Return "Swarm sequence requested by scout <scoutId> to <destination>"
 export function processHiveEvent(event: HiveEvent): string {
-  // TODO: Implement narrowing and return appropriate messages
-  return "";
+  if (event.type === 'harvest'){
+    return `Harvested ${event.potsAmount} pots of honey from producer ${event.producerId}`
+  }
+  if(event.type === 'alert'){
+    return `ALARM! Sector ${event.sector} under ${event.dangerLevel} threat!`
+  }
+  if (event.type === 'swarm'){
+    return `Swarm sequence requested by scout ${event.scoutId} to ${event.destination}`
+  }
+
+  return ""
+  
 }
