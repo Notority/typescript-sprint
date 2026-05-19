@@ -118,7 +118,21 @@ export class HoneyProducerBee extends AdultBee {
 //   - getTreasure(): string[]
 //     - Returns treasureChest.
 export class PollenForager extends AdultBee {
-  // TODO: Implement PollenForager
+  private canFly : boolean
+  private treasureChest : string[]
+  constructor(age : number , healthScore : number , foodSource : string , registryProfile : BeeProfile  , canFly : boolean){
+    super(age , healthScore , foodSource , registryProfile)
+
+    this.canFly = canFly
+    this.treasureChest = []
+  }
+  forage(location : Position3D) : void{
+    this.canFly ? this.treasureChest.push(`pollen-${location[0]}-${location[1]}-${location[2]}`) : 0
+  }
+
+  getTreasure(): string[]{
+    return this.treasureChest
+  }
 }
 
 
