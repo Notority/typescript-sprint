@@ -21,7 +21,25 @@ import { BeeProfile, Position3D } from './01-basics';
 //   - getHealth(): number
 //     - Returns healthScore.
 export class BaseLarva {
-  // TODO: Implement fields, constructor and methods
+ age : number
+ protected healthScore : number
+ private foodSource : string
+
+ constructor(age: number, healthScore: number, foodSource: string){
+  this.age = age
+  this.healthScore = healthScore
+  this.foodSource = foodSource
+ }
+
+ eat(amount : number) : void{
+ let  amnt : number = amount * 2
+ this.healthScore * amnt > 100 ? this.healthScore = 100 : this.healthScore+=amnt
+ }
+
+ getHealth() : number {
+  return this.healthScore
+ }
+
 }
 
 
