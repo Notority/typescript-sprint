@@ -150,5 +150,17 @@ export class PollenForager extends AdultBee {
 //   - getWorkers(): AdultBee[]
 //     - Returns workerRegistry.
 export class RoyalQueenBee extends AdultBee {
-  // TODO: Implement RoyalQueenBee
+  private workerRegistry : AdultBee[]
+  constructor(age : number , healthScore : number , foodSource : string , registryProfile : BeeProfile){
+    super(age , healthScore,foodSource, registryProfile)
+   this.workerRegistry = []
+  }
+  layEggs(count : number) : string{
+    return `Queen ${this.registryProfile.name} laid ${count} larvae`
+  }
+
+  registerWorker(worker: AdultBee): void{
+    this.workerRegistry.push(worker)
+  }
+
 }
