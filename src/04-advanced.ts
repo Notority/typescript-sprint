@@ -69,14 +69,14 @@ export type HiveEvent = HoneyHarvestEvent | IntruderAlertEvent | SwarmRequestEve
 // 3. Custom Type Guards
 // - Implement a custom Type Guard 'isAlertEvent' to check if a 'HiveEvent' is an 'IntruderAlertEvent'.
 //   The return type annotation must use the 'is' keyword (e.g. 'event is IntruderAlertEvent').
-export function isAlertEvent(event: HiveEvent): any {
-  // TODO: Add type annotations and implementation
+export function isAlertEvent(event: HiveEvent): event is IntruderAlertEvent {
+  return event.type === 'alert'
 }
 
 // - Implement a custom Type Guard 'isHarvestEvent' to check if a 'HiveEvent' is a 'HoneyHarvestEvent'.
 //   The return type annotation must use the 'is' keyword.
-export function isHarvestEvent(event: HiveEvent): any {
-  // TODO: Add type annotations and implementation
+export function isHarvestEvent(event: HiveEvent): event is HoneyHarvestEvent {
+  return event.type === 'harvest'
 }
 
 
