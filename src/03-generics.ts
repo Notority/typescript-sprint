@@ -62,5 +62,30 @@ export interface Task {
 //   - A method 'getHighPriorityTasks(): T[]' to filter and return all tasks with urgency 'HIGH'
 //   - A method 'size(): number' to return the count of tasks remaining
 export class HiveTaskRunner<T extends Task> {
-  // TODO: Implement HiveTaskRunner
+  private tasks : T[]
+  constructor(){
+    this.tasks = []
+  }
+
+    queueTask(task: T): void {
+
+    this.tasks.push(task)
+  }
+
+  runNextTask(): T | undefined {
+
+    return this.tasks.shift()
+  }
+
+    getHighPriorityTasks(): T[] {
+
+    return this.tasks.filter(task => task.urgency === "HIGH")
+    
+  }
+
+  size(): number {
+
+    return this.tasks.length
+  }
+
 }
