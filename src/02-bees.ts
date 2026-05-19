@@ -55,7 +55,20 @@ export class BaseLarva {
 //   - getProfile(): BeeProfile
 //     - Returns registryProfile.
 export class AdultBee extends BaseLarva {
-  // TODO: Implement AdultBee
+  protected registryProfile: BeeProfile
+  constructor(age : number , healthScore : number , foodSource : string , registryProfile : BeeProfile){
+    super(age , healthScore , foodSource)
+
+    this.registryProfile = registryProfile
+ }
+
+ performRole() : string {
+  return `Bee ${this.registryProfile.name} is executing role: ${this.registryProfile.role}`
+ }
+
+ getProfile() : BeeProfile {
+  return this.registryProfile
+ }
 }
 
 
