@@ -12,7 +12,9 @@ import { BeeProfile } from './01-basics';
 // - It must take a generic type 'T' and transform it such that:
 //   1. All properties of 'T' become 'readonly'.
 //   2. All properties of 'T' become REQUIRED (i.e. strip out optional modifiers '?' using '-?').
-export type StrictRegistryConfig<T> = any; // TODO: Implement Mapped Type
+export type StrictRegistryConfig<T> = {
+  readonly [k in keyof T]-? : T[k]
+}
 
 
 // 2. Conditional Type: FilterLaborBees
