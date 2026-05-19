@@ -10,7 +10,11 @@
 //   - temperature: number
 //   - windSpeed: number
 //   - status: 'SAFE' | 'WARNING' | 'DANGEROUS'
-export type WeatherReport = any; // TODO: Replace 'any'
+export type WeatherReport = {
+  temperature : number,
+  windSpeed : number,
+  status : 'SAFE' | 'WARNING' | 'DANGEROUS'
+}
 
 
 // 2. WeatherError Subclass
@@ -18,7 +22,9 @@ export type WeatherReport = any; // TODO: Replace 'any'
 // - Constructor:
 //   - Accepts (message: string) and calls super(message)
 export class WeatherError extends Error {
-  // TODO: Implement custom Error subclass
+  constructor(message : string){
+    super(message)
+  }
 }
 
 
