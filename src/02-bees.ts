@@ -33,7 +33,7 @@ export class BaseLarva {
 
  eat(amount : number) : void{
  let  amnt : number = amount * 2
- this.healthScore * amnt > 100 ? this.healthScore = 100 : this.healthScore+=amnt
+ this.healthScore + amnt > 100 ? this.healthScore = 100 : this.healthScore+=amnt
  }
 
  getHealth() : number {
@@ -94,12 +94,15 @@ export class HoneyProducerBee extends AdultBee {
   }
 
   produceHoney() : void {
-    this.healthScore + 2 > 100? (this.healthScore = 100 , this.honeyPotsCollected =+ 1) : (this.healthScore =+ 2 , this.honeyPotsCollected =+ 1)
+    this.healthScore + 2 > 100? (this.healthScore = 100 , this.honeyPotsCollected =+ 1) : (this.healthScore += 2 , this.honeyPotsCollected += 1)
   }
 
   unloadHoney() : number{
-    return this.honeyPotsCollected
+    const collected = this.honeyPotsCollected
     this.honeyPotsCollected = 0
+    return collected
+    
+    
   }
 }
 
@@ -161,6 +164,10 @@ export class RoyalQueenBee extends AdultBee {
 
   registerWorker(worker: AdultBee): void{
     this.workerRegistry.push(worker)
+  }
+
+  getWorkers(): AdultBee[]{
+    return this.workerRegistry
   }
 
 }
