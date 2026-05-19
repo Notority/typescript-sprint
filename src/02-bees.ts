@@ -85,7 +85,22 @@ export class AdultBee extends BaseLarva {
 //   - unloadHoney(): number
 //     - Returns the current count of honeyPotsCollected, and RESETS honeyPotsCollected to 0.
 export class HoneyProducerBee extends AdultBee {
-  // TODO: Implement HoneyProducerBee
+  private honeyPotsCollected : number 
+  constructor(age : number , healthScore : number , foodSource : string , registryProfile : BeeProfile){
+    super(age , healthScore , foodSource , registryProfile)
+
+    this.honeyPotsCollected = 0
+
+  }
+
+  produceHoney() : void {
+    this.healthScore + 2 > 100? (this.healthScore = 100 , this.honeyPotsCollected =+ 1) : (this.healthScore =+ 2 , this.honeyPotsCollected =+ 1)
+  }
+
+  unloadHoney() : number{
+    return this.honeyPotsCollected
+    this.honeyPotsCollected = 0
+  }
 }
 
 
