@@ -10,7 +10,11 @@
 //   - temperature: number
 //   - windSpeed: number
 //   - status: 'SAFE' | 'WARNING' | 'DANGEROUS'
-export type WeatherReport = any; // TODO: Replace 'any'
+export type WeatherReport = {
+  temperature : number,
+  windSpeed : number,
+  status : 'SAFE' | 'WARNING' | 'DANGEROUS'
+}
 
 
 // 2. WeatherError Subclass
@@ -18,7 +22,9 @@ export type WeatherReport = any; // TODO: Replace 'any'
 // - Constructor:
 //   - Accepts (message: string) and calls super(message)
 export class WeatherError extends Error {
-  // TODO: Implement custom Error subclass
+  constructor(message : string){
+    super(message)
+  }
 }
 
 
@@ -27,7 +33,7 @@ export class WeatherError extends Error {
 // - It should have a method:
 //   - getWeather(locationName: string): Promise<WeatherReport>
 export interface WeatherService {
-  // TODO: Implement getWeather signature
+  getWeather(locationName: string): Promise<WeatherReport>
 }
 
 
@@ -47,5 +53,23 @@ export interface WeatherService {
 //          - If 'WARNING': Return "Warning: Deployed <foragerNames.length> foragers with safety gear"
 //          - If 'SAFE': Return "Success: Deployed <foragerNames.length> foragers"
 export class HiveDispatcher {
-  // TODO: Implement HiveDispatcher
+ constructor(private weatherService : WeatherService){
+
+ }
+  async dispatchSquad(locationName : string , foragerNames : string[]): Promise<string> {
+    
+    const result = await this.weatherService.getWeather(locationName)
+    if (result.status === 'DANGEROUS'){
+     throw new WeatherError("Dangerous weather: dispatch aborted")
+    }
+    if (result.status === 'WARNING'){
+      return `Warning: Deployed ${foragerNames.length} foragers with safety gear`
+    }
+    if (result.status === "SAFE"){
+     return `Success: Deployed ${foragerNames.length} foragers` 
+    }
+    
+    return ""
+  }
+ 
 }
